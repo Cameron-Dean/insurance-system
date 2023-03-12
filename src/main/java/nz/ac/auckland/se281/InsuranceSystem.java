@@ -30,13 +30,21 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
-    int userAge = Integer.parseInt(age);
+    // check if username string has 3 or more characters
+    if (userName.length() >= 3) {
+      // ensure username is title case
+      String firstLetterOfUserName = userName.substring(0, 1).toUpperCase();
+      String restOfUserName = userName.substring(1).toLowerCase();
+      userName = firstLetterOfUserName + restOfUserName;
 
-    // add profile to Profile array list
-    profiles.add(new Profile(userName, userAge));
+      int userAge = Integer.parseInt(age);
 
-    // display success message
-    MessageCli.PROFILE_CREATED.printMessage(userName, age);
+      // add profile to Profile array list
+      profiles.add(new Profile(userName, userAge));
+
+      // display success message
+      MessageCli.PROFILE_CREATED.printMessage(userName, age);
+    }    
   }
 
   public void loadProfile(String userName) {
