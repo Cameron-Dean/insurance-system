@@ -17,6 +17,15 @@ public class InsuranceSystem {
     if (profiles.isEmpty()) {
       // currently no profiles in database
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
+    } else {
+      // one or more profiles so print database header
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(profiles.size()), (profiles.size() == 1) ? "" : "s", ":");
+
+      // print details of each profile
+      for (int i = 0; i < profiles.size(); i++) {
+        Profile profile = profiles.get(i);
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i + 1), profile.getUsername(), Integer.toString(profile.getAge()));
+      }
     }
   }
 
