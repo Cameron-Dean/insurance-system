@@ -37,13 +37,26 @@ public class InsuranceSystem {
       String restOfUserName = userName.substring(1).toLowerCase();
       userName = firstLetterOfUserName + restOfUserName;
 
-      int userAge = Integer.parseInt(age);
+      // check if the same username already exists
+      boolean profileAlreadyExists = false;
 
-      // add profile to Profile array list
-      profiles.add(new Profile(userName, userAge));
+      for (Profile profile: profiles) {
+        if (profile.getUsername() == userName) {
+          profileAlreadyExists = true;
+          break;
+        }
+      }
 
-      // display success message
-      MessageCli.PROFILE_CREATED.printMessage(userName, age);
+      if (!profileAlreadyExists) {
+        // convert string to int
+        int userAge = Integer.parseInt(age);
+  
+        // add profile to Profile array list
+        profiles.add(new Profile(userName, userAge));
+  
+        // display success message
+        MessageCli.PROFILE_CREATED.printMessage(userName, age);
+      }
     }    
   }
 
