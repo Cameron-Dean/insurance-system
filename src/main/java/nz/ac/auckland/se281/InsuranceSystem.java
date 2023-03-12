@@ -21,7 +21,7 @@ public class InsuranceSystem {
       // one or more profiles so print database header
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(profiles.size()), (profiles.size() == 1) ? "" : "s", ":");
 
-      // print details of each profile
+      // display details of each profile
       for (int i = 0; i < profiles.size(); i++) {
         Profile profile = profiles.get(i);
         MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i + 1), profile.getUsername(), Integer.toString(profile.getAge()));
@@ -30,7 +30,13 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
-    // TODO: Complete this method.
+    int userAge = Integer.parseInt(age);
+
+    // add profile to Profile array list
+    profiles.add(new Profile(userName, userAge));
+
+    // display success message
+    MessageCli.PROFILE_CREATED.printMessage(userName, age);
   }
 
   public void loadProfile(String userName) {

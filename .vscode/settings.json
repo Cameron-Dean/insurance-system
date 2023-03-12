@@ -3,4 +3,5 @@
     "[java]": {
         "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code",
     },
+    "java.debug.settings.onBuildFailureProceed": true,
 }

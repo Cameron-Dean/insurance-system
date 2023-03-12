@@ -5,8 +5,12 @@ public class Profile {
     private int age;
 
     // empty constructor
-    public Profile() {
+    public Profile() {}
 
+    // constructor to initialise username and age
+    public Profile(String username, int age) {
+        this.username = username;
+        this.age = age;
     }
 
     // method to return username string
