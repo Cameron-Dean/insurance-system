@@ -14,7 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
   MainTest.Task1.class,
   // MainTest.Task2.class, // Uncomment this line when to start Task 2
   // MainTest.Task3.class, // Uncomment this line when to start Task 3
-  // MainTest.YourTests.class, // Uncomment this line to run your own tests
+  MainTest.YourTests.class, // Uncomment this line to run your own tests
 })
 public class MainTest {
   public static class Task1 extends CliTest {
@@ -362,18 +362,29 @@ public class MainTest {
     }
 
     @Test
-    public void TY_01_your_own_test() throws Exception {
+    public void T1_07_add_profile_existing_username() throws Exception {
       // Write your own test here, in the same format as the other tests.
-      runCommands(PRINT_DB);
-      assertContains("");
+      runCommands( //
+        CREATE_PROFILE,
+        "Jordan",
+        21, //
+        CREATE_PROFILE,
+        "jorDAn",
+        31, //
+        PRINT_DB //
+      );
+      assertContains("New profile created for Jordan with age 21.");
+      assertContains("Usernames must be unique. No profile was created for 'Jordan'.");
+      assertContains("Database has 1 profile:");
+      assertDoesNotContain("Database has 2 profiles:");
     }
 
-    @Test
-    public void TY_02_your_own_test() throws Exception {
-      // Write your own test here, in the same format as the other tests.
-      runCommands(PRINT_DB);
-      assertContains("");
-    }
+    // @Test
+    // public void TY_02_your_own_test() throws Exception {
+    //   // Write your own test here, in the same format as the other tests.
+    //   runCommands(PRINT_DB);
+    //   assertContains("");
+    // }
   }
 
   private static final Object[] CREATE_SOME_CLIENTS =
