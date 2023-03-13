@@ -5,7 +5,6 @@ import nz.ac.auckland.se281.Main.PolicyType;
 
 public class InsuranceSystem {
 
-  
   ArrayList<Profile> profiles = new ArrayList<Profile>();
 
   public InsuranceSystem() {
@@ -19,12 +18,17 @@ public class InsuranceSystem {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
     } else {
       // one or more profiles so print database header
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(profiles.size()), (profiles.size() == 1) ? "" : "s", ":");
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(
+          Integer.toString(profiles.size()),
+          (profiles.size() == 1) ? "" : "s", ":");
 
       // display details of each profile
       for (int i = 0; i < profiles.size(); i++) {
         Profile profile = profiles.get(i);
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i + 1), profile.getUsername(), Integer.toString(profile.getAge()));
+        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+            Integer.toString(i + 1),
+            profile.getUsername(),
+            Integer.toString(profile.getAge()));
       }
     }
   }
@@ -40,7 +44,7 @@ public class InsuranceSystem {
       // check if the same username already exists
       boolean profileAlreadyExists = false;
 
-      for (Profile profile: profiles) {
+      for (Profile profile : profiles) {
         if (profile.getUsername().equals(userName)) {
           // exact username match found so display error message and skip adding profile
           profileAlreadyExists = true;
@@ -57,7 +61,7 @@ public class InsuranceSystem {
         if (userAge > 0) {
           // add profile to Profile array list
           profiles.add(new Profile(userName, userAge));
-    
+
           // display success message
           MessageCli.PROFILE_CREATED.printMessage(userName, age);
         } else {
@@ -66,7 +70,7 @@ public class InsuranceSystem {
         }
       }
     } else {
-      // display error message informing user the username is too short (not 3 or more characters)
+      // display error message informing user the username is not 3 or more characters
       MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(userName);
     }
   }
