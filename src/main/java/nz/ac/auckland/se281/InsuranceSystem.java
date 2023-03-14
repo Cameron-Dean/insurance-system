@@ -55,7 +55,12 @@ public class InsuranceSystem {
 
       if (!profileAlreadyExists) {
         // convert string to int
-        int userAge = Integer.parseInt(age);
+        int userAge = 0;
+        try {
+          userAge = Integer.parseInt(age);
+        } catch (NumberFormatException ex) {
+          // exception handled below
+        }
 
         // check if age is a positive integer
         if (userAge > 0) {
