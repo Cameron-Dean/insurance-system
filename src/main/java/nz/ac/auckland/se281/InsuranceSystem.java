@@ -79,7 +79,29 @@ public class InsuranceSystem {
   }
 
   public void loadProfile(String userName) {
-    // TODO: Complete this method.
+    // ensure username is title case
+    userName = Profile.toTitleCase(userName);
+
+    // get current profile
+    Profile currentProfile = null;
+
+    for (Profile profile : profiles) {
+      if (profile.getUsername().equals(userName)) {
+        currentProfile = profile;
+      }
+    }
+
+    if (currentProfile == null) {
+      // no profile found
+      MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
+      return;
+    }
+
+    // load profile
+    if (!currentProfile.isLoaded()) {
+      currentProfile.toggleLoaded();
+      MessageCli.PROFILE_LOADED.printMessage(userName);
+    }
   }
 
   public void unloadProfile() {
