@@ -9,6 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+/* Test Name Key:
+ * G - given
+ * H - hidden
+ * M - mine
+ */
+
 @RunWith(Suite.class)
 @SuiteClasses({
     MainTest.Task1.class,
@@ -23,13 +29,13 @@ public class MainTest {
     }
 
     @Test
-    public void T1_01_empty_database() throws Exception {
+    public void T1_G01_empty_database() throws Exception {
       runCommands(PRINT_DB);
       assertContains("Database has 0 profiles.");
     }
 
     @Test
-    public void T1_02_add_one_client() throws Exception {
+    public void T1_G02_add_one_client() throws Exception {
       runCommands(CREATE_PROFILE, "Jordan", "21", PRINT_DB);
       assertContains("Database has 1 profile:");
       assertContains("New profile created for Jordan with age 21.");
@@ -37,7 +43,7 @@ public class MainTest {
     }
 
     @Test
-    public void T1_03_add_one_client_with_info() throws Exception {
+    public void T1_G03_add_one_client_with_info() throws Exception {
       runCommands(CREATE_PROFILE, "Jordan", "21", PRINT_DB);
       assertContains("Database has 1 profile:");
       assertContains("New profile created for Jordan with age 21.");
@@ -46,7 +52,7 @@ public class MainTest {
     }
 
     @Test
-    public void T1_04_ignore_short_name() throws Exception {
+    public void T1_G04_ignore_short_name() throws Exception {
       runCommands(CREATE_PROFILE, "Jo", "21", PRINT_DB);
       assertContains("Database has 0 profiles.");
       assertContains(
@@ -70,7 +76,7 @@ public class MainTest {
     }
 
     @Test
-    public void T1_05_add_two_clients() throws Exception {
+    public void T1_G05_add_two_clients() throws Exception {
       runCommands(CREATE_PROFILE, "Jordan", "21", CREATE_PROFILE, "Tom", "25", PRINT_DB);
       assertContains("Database has 2 profiles:");
       assertContains("1: Jordan, 21");
@@ -108,7 +114,7 @@ public class MainTest {
     }
 
     @Test
-    public void T1_06_username_to_titlecase() throws Exception {
+    public void T1_G06_username_to_titlecase() throws Exception {
       runCommands(CREATE_PROFILE, "jorDan", "21", CREATE_PROFILE, "TOM", "25", PRINT_DB);
       assertContains("Database has 2 profiles:");
       assertContains("1: Jordan, 21");
@@ -188,7 +194,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_01_load_profile_found() throws Exception {
+    public void T2_G01_load_profile_found() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "Tom"));
 
       assertContains("Profile loaded for Tom.");
@@ -196,7 +202,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_02_load_profile_not_found() throws Exception {
+    public void T2_G02_load_profile_not_found() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "Alex"));
 
       assertContains("No profile found for Alex. Profile not loaded.");
@@ -204,7 +210,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_03_load_profile_found_display() throws Exception {
+    public void T2_G03_load_profile_found_display() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "Tom", PRINT_DB));
 
       assertContains("Profile loaded for Tom.");
@@ -216,7 +222,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_04_load_profile_switch_profiles() throws Exception {
+    public void T2_G04_load_profile_switch_profiles() throws Exception {
       runCommands(
           unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "tom", LOAD_PROFILE, "jenny", PRINT_DB));
 
@@ -232,7 +238,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_05_unload_profile() throws Exception {
+    public void T2_G05_unload_profile() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "Jenny", UNLOAD_PROFILE, PRINT_DB));
 
       assertContains("Profile loaded for Jenny.");
@@ -248,7 +254,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_06_unload_invalid_profile() throws Exception {
+    public void T2_G06_unload_invalid_profile() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "jen", UNLOAD_PROFILE, PRINT_DB));
 
       assertContains("No profile is currently loaded.");
@@ -263,7 +269,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_07_delete_profile_found() throws Exception {
+    public void T2_G07_delete_profile_found() throws Exception {
       runCommands(unpack(CREATE_SOME_CLIENTS, DELETE_PROFILE, "jordan", PRINT_DB));
 
       assertContains("Profile deleted for Jordan.");
@@ -274,7 +280,7 @@ public class MainTest {
     }
 
     @Test
-    public void T2_08_delete_profile_while_loaded() throws Exception {
+    public void T2_G08_delete_profile_while_loaded() throws Exception {
       runCommands(
           unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "Jenny", DELETE_PROFILE, "jenny", PRINT_DB));
 
@@ -296,7 +302,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_01_cannot_add_policy_without_loaded_profile() throws Exception {
+    public void T3_G01_cannot_add_policy_without_loaded_profile() throws Exception {
       runCommands(
           unpack(CREATE_SOME_CLIENTS, POLICY_HOME, options("1000000", "20 Symonds Street", "yes")));
 
@@ -305,7 +311,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_02_add_home_policy_loaded_profile() throws Exception {
+    public void T3_G02_add_home_policy_loaded_profile() throws Exception {
       runCommands(
           unpack(
               CREATE_SOME_CLIENTS,
@@ -329,7 +335,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_03_add_car_policy_loaded_profile() throws Exception {
+    public void T3_G03_add_car_policy_loaded_profile() throws Exception {
       runCommands(
           unpack(
               CREATE_SOME_CLIENTS,
@@ -351,7 +357,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_04_two_different_policies_home_life_one_profile() throws Exception {
+    public void T3_G04_two_different_policies_home_life_one_profile() throws Exception {
       runCommands(
           unpack(
               CREATE_SOME_CLIENTS,
@@ -378,7 +384,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_05_three_policies_one_profile() throws Exception {
+    public void T3_G05_three_policies_one_profile() throws Exception {
       runCommands(
           unpack(
               CREATE_SOME_CLIENTS,
@@ -409,7 +415,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_06_life_policy_over_age_limit() throws Exception {
+    public void T3_G06_life_policy_over_age_limit() throws Exception {
       runCommands(
           CREATE_PROFILE,
           "Jenny",
@@ -432,7 +438,7 @@ public class MainTest {
     }
 
     @Test
-    public void T3_07_two_policies_one_profile_ignore_zero_policy_total_costs() throws Exception {
+    public void T3_G07_two_policies_one_profile_ignore_zero_policy_total_costs() throws Exception {
       runCommands(
           unpack( //
               CREATE_SOME_CLIENTS, //
@@ -466,29 +472,73 @@ public class MainTest {
     }
 
     @Test
-    public void T1_07_add_profile_existing_username() throws Exception {
+    public void T1_M01_add_profile_existing_username() throws Exception {
       // Write your own test here, in the same format as the other tests.
       runCommands( //
           CREATE_PROFILE,
           "Jordan",
-          21, //
+          "21", //
           CREATE_PROFILE,
           "jorDAn",
-          31, //
+          "31", //
           PRINT_DB //
       );
+
       assertContains("New profile created for Jordan with age 21.");
       assertContains("Usernames must be unique. No profile was created for 'Jordan'.");
       assertContains("Database has 1 profile:");
-      assertDoesNotContain("Database has 2 profiles:");
+
+      assertDoesNotContain("Database has 2 profiles:", true);
     }
 
-    // @Test
-    // public void TY_02_your_own_test() throws Exception {
-    // // Write your own test here, in the same format as the other tests.
-    // runCommands(PRINT_DB);
-    // assertContains("");
-    // }
+    @Test
+    public void T2_M01_load_invalid_profile_while_already_loaded() throws Exception {
+      runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "jorDAN", LOAD_PROFILE, "toBY", PRINT_DB));
+
+      assertContains("Profile loaded for Jordan.");
+      assertContains("No profile found for Toby. Profile not loaded.");
+      assertContains("Database has 3 profiles:");
+      assertContains("*** 1: Jordan, 21");
+
+      assertDoesNotContain("Profile loaded for Toby.", true);
+    }
+
+    @Test
+    public void T2_M02_create_profile_when_profile_loaded() throws Exception {
+      runCommands(unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "TOM", CREATE_PROFILE, "tOBy", "28", PRINT_DB));
+
+      assertContains("Profile loaded for Tom.");
+      assertContains("Cannot create a new profile. First unload the profile for Tom.");
+      assertContains("Database has 3 profiles:");
+
+      assertDoesNotContain("Database has 4 profiles:", true);
+      assertDoesNotContain("4: Tom, 28", true);
+    }
+
+    @Test
+    public void T2_M03_create_profile_after_profile_loaded() throws Exception {
+      runCommands(
+          unpack(CREATE_SOME_CLIENTS, LOAD_PROFILE, "toM", UNLOAD_PROFILE, CREATE_PROFILE, "ToBy", "28", PRINT_DB));
+
+      assertContains("Profile loaded for Tom.");
+      assertContains("Profile unloaded for Tom.");
+      assertContains("New profile created for Toby with age 28.");
+      assertContains("Database has 4 profiles:");
+      assertContains("4: Toby, 28");
+
+      assertDoesNotContain("Cannot create a new profile. First unload the profile for Tom.", true);
+      assertDoesNotContain("Database has 3 profiles:", true);
+    }
+
+    @Test
+    public void T2_M04_delete_profile_not_found() throws Exception {
+      runCommands(unpack(CREATE_SOME_CLIENTS, PRINT_DB, DELETE_PROFILE, "samUEl"));
+
+      assertContains("Database has 3 profiles:");
+      assertContains("No profile found for Samuel. No profile was deleted.");
+
+      assertDoesNotContain("Profile deleted for Samuel.", true);
+    }
   }
 
   private static final Object[] CREATE_SOME_CLIENTS = new Object[] {
