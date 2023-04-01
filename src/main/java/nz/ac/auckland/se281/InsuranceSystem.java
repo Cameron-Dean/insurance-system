@@ -25,7 +25,8 @@ public class InsuranceSystem {
       // display details of each profile
       for (int i = 0; i < profiles.size(); i++) {
         Profile profile = profiles.get(i);
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(
+        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
+            (profile.isLoaded()) ? "*** " : "",
             Integer.toString(i + 1),
             profile.getUsername(),
             Integer.toString(profile.getAge()));
@@ -95,6 +96,15 @@ public class InsuranceSystem {
       // no profile found
       MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(userName);
       return;
+    }
+
+    // check if another profile is loaded
+    for (Profile profile : profiles) {
+      if (profile.isLoaded()) {
+        // unload currently loaded profile
+        profile.toggleLoaded();
+        MessageCli.PROFILE_UNLOADED.printMessage(profile.getUsername());
+      }
     }
 
     // load profile
