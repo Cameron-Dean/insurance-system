@@ -136,7 +136,25 @@ public class InsuranceSystem {
   }
 
   public void deleteProfile(String userName) {
-    // TODO: Complete this method.
+    // ensure username is title case
+    userName = Profile.toTitleCase(userName);
+
+    for (Profile profile : profiles) {
+      if (profile.getUsername().equals(userName)) {
+        // profile found, check if it's currently loaded
+        if (profile.isLoaded()) {
+          MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(userName);
+          return;
+        }
+
+        // profile found and is not loaded so delete
+        profiles.remove(profile);
+        MessageCli.PROFILE_DELETED.printMessage(userName);
+        return;
+      }
+    }
+
+    MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(userName);
   }
 
   public void createPolicy(PolicyType type, String[] options) {
