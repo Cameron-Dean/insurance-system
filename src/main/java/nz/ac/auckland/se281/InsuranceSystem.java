@@ -110,9 +110,7 @@ public class InsuranceSystem {
     // check if another profile is loaded
     for (Profile profile : profiles) {
       if (profile.isLoaded()) {
-        // unload currently loaded profile
-        profile.toggleLoaded();
-        MessageCli.PROFILE_UNLOADED.printMessage(profile.getUsername());
+        unloadProfile();
       }
     }
 
@@ -124,7 +122,17 @@ public class InsuranceSystem {
   }
 
   public void unloadProfile() {
-    // TODO: Complete this method.
+    for (Profile profile : profiles) {
+      if (profile.isLoaded()) {
+        // unload current profile
+        profile.toggleLoaded();
+        MessageCli.PROFILE_UNLOADED.printMessage(profile.getUsername());
+        return;
+      }
+    }
+
+    // no profile currently loaded
+    MessageCli.NO_PROFILE_LOADED.printMessage();
   }
 
   public void deleteProfile(String userName) {
