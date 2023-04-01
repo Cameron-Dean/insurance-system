@@ -35,9 +35,7 @@ public class InsuranceSystem {
 
   public void createNewProfile(String userName, String age) {
     // ensure username is title case
-    String firstLetterOfUserName = userName.substring(0, 1).toUpperCase();
-    String restOfUserName = userName.substring(1).toLowerCase();
-    userName = firstLetterOfUserName + restOfUserName;
+    userName = Profile.toTitleCase(userName);
 
     // check if username string has 3 or more characters
     if (userName.length() >= 3) {
