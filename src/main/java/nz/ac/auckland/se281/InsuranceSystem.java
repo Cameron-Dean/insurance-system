@@ -35,6 +35,15 @@ public class InsuranceSystem {
   }
 
   public void createNewProfile(String userName, String age) {
+    // check if a profile is currently loaded
+    for (Profile profile : profiles) {
+      if (profile.isLoaded()) {
+        // a profile is currently loaded, therefore not allowed to create new profile
+        MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(profile.getUsername());
+        return;
+      }
+    }
+
     // ensure username is title case
     userName = Profile.toTitleCase(userName);
 
