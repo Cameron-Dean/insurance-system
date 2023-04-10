@@ -27,13 +27,14 @@ public class InsuranceSystem {
         Profile profile = profiles.get(i);
         ArrayList<Policy> profilePolicies = profile.getPolicies();
 
-        MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
+        MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(
             (profile.isLoaded()) ? "*** " : "",
             Integer.toString(i + 1),
             profile.getUsername(),
             Integer.toString(profile.getAge()),
             Integer.toString(profilePolicies.size()),
-            (profilePolicies.size() == 1) ? "y" : "ies");
+            (profilePolicies.size() == 1) ? "y" : "ies",
+            Integer.toString(profile.getTotalPremium()));
 
         // display details of each policy within the profile
         for (Policy policy : profilePolicies) {
