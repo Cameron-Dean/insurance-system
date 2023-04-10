@@ -539,6 +539,92 @@ public class MainTest {
 
       assertDoesNotContain("Profile deleted for Samuel.", true);
     }
+
+    @Test
+    public void T3_M01_create_car_policy_age_test() throws Exception {
+      runCommands(
+          unpack( //
+              CREATE_SOME_CLIENTS, //
+              LOAD_PROFILE,
+              "ToM", //
+              POLICY_CAR,
+              options("35000", "Nissan Leaf", "GR333N", "no"), //
+              LOAD_PROFILE,
+              "jorDAN", //
+              POLICY_CAR,
+              options("1000", "Toyota RAV-4", "S4V3RS", "yes"), //
+              PRINT_DB));
+
+      assertContains("Profile loaded for Tom.");
+      assertContains("Profile loaded for Jordan.");
+
+      assertContains("Car Policy (Nissan Leaf, Sum Insured: $35000, Premium: $3500 -> $3500)");
+      assertContains("Car Policy (Toyota RAV-4, Sum Insured: $1000, Premium: $230 -> $230)");
+
+      assertContains(" *** 1: Jordan, 21, 1 policy for a total of $230");
+      assertContains("2: Tom, 25, 1 policy for a total of $3500");
+    }
+
+    @Test
+    public void T3_M02_maximum_age_boundary_life_policy() throws Exception {
+      runCommands( //
+          CREATE_PROFILE,
+          "cAMEROn",
+          "100", //
+          LOAD_PROFILE,
+          "CAMERon", //
+          POLICY_LIFE,
+          options("950000"), //
+          PRINT_DB);
+
+      assertContains("New profile created for Cameron with age 100.");
+      assertContains("Profile loaded for Cameron.");
+
+      assertContains("Life Policy (Sum Insured: $950000, Premium: $19000 -> $19000)");
+    }
+
+    @Test
+    public void T3_M03_only_one_life_policy_per_profile() throws Exception {
+      runCommands(
+          unpack(
+              CREATE_SOME_CLIENTS, //
+              LOAD_PROFILE,
+              "JEnnY", //
+              POLICY_LIFE,
+              options("15000000"), //
+              LOAD_PROFILE,
+              "JorDAN", //
+              POLICY_LIFE,
+              options("5000000"), //
+              PRINT_DB, //
+              POLICY_HOME,
+              options("7500000", "80 Pakuranga Road", "yes"), //
+              LOAD_PROFILE,
+              "JEnNY", //
+              POLICY_LIFE,
+              options("10000000"), //
+              PRINT_DB));
+
+      assertContains("Profile loaded for Jenny.");
+      assertContains("Profile loaded for Jordan.");
+
+      assertContains("New life policy created for Jenny.");
+      assertContains("New life policy created for Jordan.");
+      assertContains("New home policy created for Jordan.");
+
+      assertContains("Life Policy (Sum Insured: $5000000, Premium: $60500 -> $60500)");
+
+      assertContains("Life Policy (Sum Insured: $15000000, Premium: $184500 -> $184500)");
+      assertContains("Life Policy (Sum Insured: $5000000, Premium: $60500 -> $54450)");
+      assertContains("Home Policy (80 Pakuranga Road, Sum Insured: $7500000, Premium: $150000 -> $135000)");
+
+      assertContains("Jenny already has a life policy. No new policy was created.");
+
+      assertDoesNotContain("Life Policy (Sum Insured: $10000000, Premium: $123000 -> $123000)", true);
+      assertDoesNotContain("Life Policy (Sum Insured: $10000000, Premium: $123000 -> $110700)", true);
+      assertDoesNotContain("Life Policy (Sum Insured: $15000000, Premium: $184500 -> $166050)", true);
+      assertDoesNotContain("3: Jenny, 23, 2 policies", true);
+    }
   }
 
   private static final Object[] CREATE_SOME_CLIENTS = new Object[] {

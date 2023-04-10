@@ -224,7 +224,10 @@ public class InsuranceSystem {
           mechanical = true;
         }
 
-        loadedProfile.addPolicy(new CarPolicy(Integer.parseInt(options[0]), options[1], options[2], mechanical));
+        loadedProfile.addPolicy(new CarPolicy(
+            Integer.parseInt(options[0]), options[1],
+            options[2],
+            mechanical));
         MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedProfile.getUsername());
 
         break;
