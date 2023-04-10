@@ -219,13 +219,12 @@ public class InsuranceSystem {
 
         break;
       case CAR:
-        boolean mechanicalBreakdown = false;
+        boolean mechanical = false;
         if (options[3].equals("yes")) {
-          mechanicalBreakdown = true;
+          mechanical = true;
         }
 
-        loadedProfile
-            .addPolicy(new CarPolicy(Integer.parseInt(options[0]), options[1], options[2], mechanicalBreakdown));
+        loadedProfile.addPolicy(new CarPolicy(Integer.parseInt(options[0]), options[1], options[2], mechanical));
         MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedProfile.getUsername());
 
         break;
