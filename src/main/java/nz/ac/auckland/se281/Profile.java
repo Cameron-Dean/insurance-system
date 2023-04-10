@@ -74,6 +74,17 @@ public class Profile {
     return totalPremium;
   }
 
+  // method to return individual discount premium for a policy
+  public int getDiscountedPremium(int basePremium) {
+    if (policies.size() == 2) {
+      return basePremium - (int) (0.1 * basePremium);
+    } else if (policies.size() >= 3) {
+      return basePremium - (int) (0.2 * basePremium);
+    }
+
+    return basePremium;
+  }
+
   // method to check whether current profile has life policy
   public boolean hasLifePolicy() {
     for (Policy policy : policies) {

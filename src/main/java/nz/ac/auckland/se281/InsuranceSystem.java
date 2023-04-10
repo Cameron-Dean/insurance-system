@@ -25,11 +25,43 @@ public class InsuranceSystem {
       // display details of each profile
       for (int i = 0; i < profiles.size(); i++) {
         Profile profile = profiles.get(i);
-        MessageCli.PRINT_DB_PROFILE_HEADER_SHORT.printMessage(
+        ArrayList<Policy> profilePolicies = profile.getPolicies();
+
+        MessageCli.PRINT_DB_PROFILE_HEADER_MEDIUM.printMessage(
             (profile.isLoaded()) ? "*** " : "",
             Integer.toString(i + 1),
             profile.getUsername(),
-            Integer.toString(profile.getAge()));
+            Integer.toString(profile.getAge()),
+            Integer.toString(profilePolicies.size()),
+            (profilePolicies.size() == 1) ? "y" : "ies");
+
+        // display details of each policy within the profile
+        for (Policy policy : profilePolicies) {
+          if (policy instanceof HomePolicy) {
+            HomePolicy homePolicy = (HomePolicy) policy;
+
+            MessageCli.PRINT_DB_HOME_POLICY.printMessage(
+                homePolicy.getAddress(),
+                homePolicy.getSumInsuredString(),
+                Integer.toString(homePolicy.basePremium()),
+                Integer.toString(profile.getDiscountedPremium(homePolicy.basePremium())));
+          } else if (policy instanceof CarPolicy) {
+            CarPolicy carPolicy = (CarPolicy) policy;
+
+            MessageCli.PRINT_DB_CAR_POLICY.printMessage(
+                carPolicy.getMakeAndModel(),
+                carPolicy.getSumInsuredString(),
+                Integer.toString(carPolicy.basePremium(profile)),
+                Integer.toString(profile.getDiscountedPremium(carPolicy.basePremium(profile))));
+          } else if (policy instanceof LifePolicy) {
+            LifePolicy lifePolicy = (LifePolicy) policy;
+
+            MessageCli.PRINT_DB_LIFE_POLICY.printMessage(
+                lifePolicy.getSumInsuredString(),
+                Integer.toString(lifePolicy.basePremium(profile)),
+                Integer.toString(profile.getDiscountedPremium(lifePolicy.basePremium(profile))));
+          }
+        }
       }
     }
   }

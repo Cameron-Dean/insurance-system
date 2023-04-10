@@ -15,10 +15,14 @@ public class CarPolicy extends Policy {
 
   public int basePremium(Profile user) {
     if (user.getAge() < 25) {
-      return (mechanicalBreakdown) ? (((int) 0.15 * sumInsured) + 80) : ((int) 0.15 * sumInsured);
+      return (mechanicalBreakdown) ? (((int) (0.15 * sumInsured)) + 80) : ((int) (0.15 * sumInsured));
     }
 
-    return (mechanicalBreakdown) ? (((int) 0.1 * sumInsured) + 80) : ((int) 0.1 * sumInsured);
+    return (mechanicalBreakdown) ? (((int) (0.1 * sumInsured)) + 80) : ((int) (0.1 * sumInsured));
+  }
+
+  public String getMakeAndModel() {
+    return makeAndModel;
   }
 
 }

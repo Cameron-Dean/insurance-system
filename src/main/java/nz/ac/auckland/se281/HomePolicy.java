@@ -12,7 +12,11 @@ public class HomePolicy extends Policy {
   }
 
   public int basePremium() {
-    return (rental) ? (int) 0.02 * sumInsured : (int) 0.01 * sumInsured;
+    return (rental) ? (int) (0.02 * sumInsured) : (int) (0.01 * sumInsured);
+  }
+
+  public String getAddress() {
+    return address;
   }
 
 }

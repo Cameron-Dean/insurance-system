@@ -8,4 +8,7 @@ public abstract class Policy {
     this.sumInsured = sumInsured;
   }
 
+  public String getSumInsuredString() {
+    return Integer.toString(sumInsured);
+  }
 }

@@ -48,10 +48,12 @@ public abstract class CliTest {
   }
 
   /** Timeout if test runs longer than 10 seconds */
-  @Rule public Timeout timeout = new Timeout(10, TimeUnit.SECONDS);
+  @Rule
+  public Timeout timeout = new Timeout(10, TimeUnit.SECONDS);
 
   /**
-   * Configures the test output and input streams, by creating new temporary streams while storing
+   * Configures the test output and input streams, by creating new temporary
+   * streams while storing
    * the default.
    */
   @Before
@@ -72,7 +74,8 @@ public abstract class CliTest {
   }
 
   /**
-   * Restores the test output and input streams back to the defaults and prints the relevant System
+   * Restores the test output and input streams back to the defaults and prints
+   * the relevant System
    * out and err output messages where necessary.
    */
   @After
@@ -104,7 +107,8 @@ public abstract class CliTest {
   }
 
   /**
-   * Takes an unspecified number of strings as an array of commands to construct a string list of
+   * Takes an unspecified number of strings as an array of commands to construct a
+   * string list of
    * commands for the cli which are then executed by the main code.
    *
    * @param commands the strings of commands to be run
@@ -118,8 +122,8 @@ public abstract class CliTest {
    */
   public void runCommands(Object... commands)
       throws NoSuchElementException, IllegalArgumentException, IllegalAccessException,
-          InstantiationException, SecurityException, NoSuchMethodException,
-          InvocationTargetException {
+      InstantiationException, SecurityException, NoSuchMethodException,
+      InvocationTargetException {
     inputs.add(commands);
 
     // Construct the string list of inputs/commands.
@@ -150,10 +154,9 @@ public abstract class CliTest {
     sb.append(NEW_LINE);
     sb.append("exit");
 
-    Object main =
-        mainClass
-            .getConstructor(Scanner.class, InsuranceSystem.class)
-            .newInstance(new Scanner(sb.toString()), new InsuranceSystem());
+    Object main = mainClass
+        .getConstructor(Scanner.class, InsuranceSystem.class)
+        .newInstance(new Scanner(sb.toString()), new InsuranceSystem());
 
     mainClass.getMethod("start").invoke(main);
 
@@ -162,7 +165,8 @@ public abstract class CliTest {
   }
 
   /**
-   * Asserts that the input string occurs within the console stream and fails the test if the
+   * Asserts that the input string occurs within the console stream and fails the
+   * test if the
    * condition is not met.
    *
    * @param s the string to check for.
@@ -179,7 +183,8 @@ public abstract class CliTest {
   }
 
   /**
-   * Asserts that the input string does not occur within the console and fails the test if the
+   * Asserts that the input string does not occur within the console and fails the
+   * test if the
    * condition is not met. This method is case sensitive.
    *
    * @param s the string to check for.
@@ -196,10 +201,11 @@ public abstract class CliTest {
   }
 
   /**
-   * Asserts that the input string does not occur within the console and fails the test if the
+   * Asserts that the input string does not occur within the console and fails the
+   * test if the
    * condition is not met.
    *
-   * @param s the string to check for.
+   * @param s          the string to check for.
    * @param ignoreCase whether the check should should ignore case or not.
    */
   public void assertDoesNotContain(String s, boolean ignoreCase) {
@@ -219,12 +225,15 @@ public abstract class CliTest {
   }
 
   /**
-   * Checks that the output from running is correct. The run value should be greater than 0 and less
-   * than or equal to the number of instruction sets in one test. The console output will be split
-   * by delimiterRun message and should return an array with zero or more elements. (Check if one or
+   * Checks that the output from running is correct. The run value should be
+   * greater than 0 and less
+   * than or equal to the number of instruction sets in one test. The console
+   * output will be split
+   * by delimiterRun message and should return an array with zero or more
+   * elements. (Check if one or
    * more).
    *
-   * @param s Unsure of function.
+   * @param s   Unsure of function.
    * @param run integer index of the intended instruction set output.
    */
   private void checkRun(int run) { // Can we remove the String parameter?
@@ -237,15 +246,20 @@ public abstract class CliTest {
   }
 
   /**
-   * Asserts that the input string occurs within a substring of the captureOut and fails the test if
-   * the condition is not met. The substring is obtained by splitting the captureOut message at
+   * Asserts that the input string occurs within a substring of the captureOut and
+   * fails the test if
+   * the condition is not met. The substring is obtained by splitting the
+   * captureOut message at
    * every occurrence of the runDelimiter message, and indexing by the run value.
    *
-   * <p>For example, the second set of instructions in a test will have an index 1, and the
-   * corresponding output will be indexed at 1 as well. Therefore, a test for this instruction set
+   * <p>
+   * For example, the second set of instructions in a test will have an index 1,
+   * and the
+   * corresponding output will be indexed at 1 as well. Therefore, a test for this
+   * instruction set
    * would use a run value of 1 to check the string occurs in the relevant output.
    *
-   * @param s the String to check for
+   * @param s   the String to check for
    * @param run index of the instruction set and console output of interest
    */
   public void assertContains(String s, int run) {
@@ -259,15 +273,22 @@ public abstract class CliTest {
   }
 
   /**
-   * Asserts that the input string does not occur within a substring of the captureOut and fails the
-   * test if the condition is not met. The substring is obtained by splitting the captureOut message
-   * at every occurrence of the runDelimiter message, and indexing by the run value.
+   * Asserts that the input string does not occur within a substring of the
+   * captureOut and fails the
+   * test if the condition is not met. The substring is obtained by splitting the
+   * captureOut message
+   * at every occurrence of the runDelimiter message, and indexing by the run
+   * value.
    *
-   * <p>For example, the second set of instructions in a test will have an index 1, and the
-   * corresponding output will be indexed at 1 as well. Therefore, a test for this instruction set
-   * would use a run value of 1 to check the string does not occur in the relevant output.
+   * <p>
+   * For example, the second set of instructions in a test will have an index 1,
+   * and the
+   * corresponding output will be indexed at 1 as well. Therefore, a test for this
+   * instruction set
+   * would use a run value of 1 to check the string does not occur in the relevant
+   * output.
    *
-   * @param s the String to check for
+   * @param s   the String to check for
    * @param run index of the instruction set and console output of interest
    */
   public void assertDoesNotContain(String s, int run) {
