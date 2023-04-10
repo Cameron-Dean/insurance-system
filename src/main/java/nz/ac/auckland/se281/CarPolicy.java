@@ -13,4 +13,12 @@ public class CarPolicy extends Policy {
     this.mechanicalBreakdown = mechanicalBreakdown;
   }
 
+  public int carBasePremium(Profile user) {
+    if (user.getAge() < 25) {
+      return (mechanicalBreakdown) ? (((int) 0.15 * sumInsured) + 80) : ((int) 0.15 * sumInsured);
+    }
+
+    return (mechanicalBreakdown) ? (((int) 0.1 * sumInsured) + 80) : ((int) 0.1 * sumInsured);
+  }
+
 }

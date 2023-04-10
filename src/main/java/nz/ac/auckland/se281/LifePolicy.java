@@ -6,4 +6,8 @@ public class LifePolicy extends Policy {
     super(sumInsured);
   }
 
+  public int lifeBasePremium(Profile user) {
+    return (1 + (user.getAge() / 100)) * sumInsured;
+  }
+
 }

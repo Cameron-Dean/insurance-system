@@ -11,4 +11,8 @@ public class HomePolicy extends Policy {
     this.rental = rental;
   }
 
+  public int homeBasePremium() {
+    return (rental) ? (int) 0.02 * sumInsured : (int) 0.01 * sumInsured;
+  }
+
 }
