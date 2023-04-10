@@ -158,6 +158,29 @@ public class InsuranceSystem {
   }
 
   public void createPolicy(PolicyType type, String[] options) {
-    // TODO: Complete this method.
+    // find loaded profile
+    Profile loadedProfile = null;
+
+    for (Profile profile : profiles) {
+      if (profile.isLoaded()) {
+        loadedProfile = profile;
+        break;
+      }
+    }
+
+    if (loadedProfile == null) {
+      // no loaded profile found
+      MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
+      return;
+    }
+
+    switch (type) {
+      case HOME:
+        break;
+      case CAR:
+        break;
+      case LIFE:
+        break;
+    }
   }
 }
