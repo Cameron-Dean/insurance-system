@@ -176,10 +176,42 @@ public class InsuranceSystem {
 
     switch (type) {
       case HOME:
+        boolean rental = false;
+        if (options[2].equals("yes")) {
+          rental = true;
+        }
+
+        loadedProfile.addPolicy(new HomePolicy(Integer.parseInt(options[0]), options[1], rental));
+        MessageCli.NEW_POLICY_CREATED.printMessage("home", loadedProfile.getUsername());
+
         break;
       case CAR:
+        boolean mechanicalBreakdown = false;
+        if (options[3].equals("yes")) {
+          mechanicalBreakdown = true;
+        }
+
+        loadedProfile
+            .addPolicy(new CarPolicy(Integer.parseInt(options[0]), options[1], options[2], mechanicalBreakdown));
+        MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedProfile.getUsername());
+
         break;
       case LIFE:
+        if (loadedProfile.getAge() > 100) {
+          // age is over limit
+          MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(loadedProfile.getUsername());
+          return;
+        }
+
+        if (loadedProfile.hasLifePolicy()) {
+          // already has a life policy
+          MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(loadedProfile.getUsername());
+          return;
+        }
+
+        loadedProfile.addPolicy(new LifePolicy(Integer.parseInt(options[0])));
+        MessageCli.NEW_POLICY_CREATED.printMessage("life", loadedProfile.getUsername());
+
         break;
     }
   }

@@ -74,6 +74,18 @@ public class Profile {
     return totalPremium;
   }
 
+  // method to check whether current profile has life policy
+  public boolean hasLifePolicy() {
+    for (Policy policy : policies) {
+      if (policy instanceof LifePolicy) {
+        // life policy found
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   // method to change whether profile is loaded
   public void toggleLoaded() {
     this.isLoaded = !this.isLoaded;
