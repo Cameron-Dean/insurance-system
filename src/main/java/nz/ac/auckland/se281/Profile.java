@@ -1,5 +1,7 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Profile {
 
   // method to convert a username to title case
@@ -14,17 +16,14 @@ public class Profile {
   private String username;
   private int age;
   private boolean isLoaded;
-
-  // empty constructor
-  public Profile() {
-    this.isLoaded = false;
-  }
+  private ArrayList<Policy> policies;
 
   // constructor to initialise username and age
   public Profile(String username, int age) {
     this.username = username;
     this.age = age;
     this.isLoaded = false;
+    this.policies = new ArrayList<>();
   }
 
   // method to return username string
@@ -42,9 +41,19 @@ public class Profile {
     return this.isLoaded;
   }
 
+  // method to return user policies
+  public ArrayList<Policy> getPolicies() {
+    return this.policies;
+  }
+
   // method to change whether profile is loaded
   public void toggleLoaded() {
     this.isLoaded = !this.isLoaded;
+  }
+
+  // method to add policy to policies ArrayList
+  public void addPolicy(Policy policy) {
+    this.policies.add(policy);
   }
 
 }
