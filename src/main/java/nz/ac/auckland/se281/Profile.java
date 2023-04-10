@@ -46,6 +46,34 @@ public class Profile {
     return this.policies;
   }
 
+  // methods to return total premium
+  public int getTotalPremium() {
+    int totalPremium = 0;
+
+    // add base premium from each policy to total premium
+    for (Policy policy : policies) {
+      if (policy instanceof HomePolicy) {
+        HomePolicy homePolicy = (HomePolicy) policy;
+        totalPremium += homePolicy.basePremium();
+      } else if (policy instanceof CarPolicy) {
+        CarPolicy carPolicy = (CarPolicy) policy;
+        totalPremium += carPolicy.basePremium(this);
+      } else if (policy instanceof LifePolicy) {
+        LifePolicy lifePolicy = (LifePolicy) policy;
+        totalPremium += lifePolicy.basePremium(this);
+      }
+    }
+
+    // calculate discounts and apply to total premium
+    if (policies.size() == 2) {
+      totalPremium -= 0.1 * totalPremium;
+    } else if (policies.size() >= 3) {
+      totalPremium -= 0.2 * totalPremium;
+    }
+
+    return totalPremium;
+  }
+
   // method to change whether profile is loaded
   public void toggleLoaded() {
     this.isLoaded = !this.isLoaded;
