@@ -210,7 +210,7 @@ public class InsuranceSystem {
     switch (type) {
       case HOME:
         boolean rental = false;
-        if (options[2].equals("yes")) {
+        if (options[2].contains("y") || options[2].contains("Y")) {
           rental = true;
         }
 
@@ -219,15 +219,15 @@ public class InsuranceSystem {
 
         break;
       case CAR:
-        boolean mechanical = false;
-        if (options[3].equals("yes")) {
-          mechanical = true;
+        boolean mechWarranty = false;
+        if (options[3].contains("y") || options[3].contains("Y")) {
+          mechWarranty = true;
         }
 
         loadedProfile.addPolicy(new CarPolicy(
             Integer.parseInt(options[0]), options[1],
             options[2],
-            mechanical));
+            mechWarranty));
         MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedProfile.getUsername());
 
         break;
